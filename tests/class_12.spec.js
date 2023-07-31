@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
 import { test, expect } from '@playwright/test';
-const REACT_APP_URL = import.meta.env.VITE_TEST_URL || 'http://localhost:3000';
+dotenv.config({ path: '.env.local' });
 
-dotenv.config();
+const REACT_APP_URL = process.env.VITE_TEST_URL || 'http://localhost:3000';
 
 test.describe('Create: As a user, I\'d like to add a new book to the shelf, so that I can update the list with my own recommendations.', () => {
 

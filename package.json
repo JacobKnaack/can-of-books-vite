@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "test": "npx playwright test",
+    "test:debug": "npx playwright test --debug",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -13,6 +15,7 @@
     "@playwright/test": "^1.36.2",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.1",
+    "dotenv": "^16.3.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
     "react-dom": "^18.2.0",
