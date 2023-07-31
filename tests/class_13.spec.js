@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import { test, expect } from '@playwright/test';
 dotenv.config({ path: '.env.local' });
 
-const REACT_APP_URL = process.env.VITE_TEST_URL || 'http://localhost:3000';
+const REACT_APP_URL = process.env.PLAYWRIGHT_TEST_URL || 'http://localhost:5173';
 
 test.describe('Update: As a user, I want to update book details on my list, so that I can change the book status, or update the book details as I learn more about it.', () => {
   test.beforeEach(async ({ page }) => {

@@ -1,8 +1,15 @@
-# React + Vite
+# Start your own "Can of Books" App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository has starter code to begin work on creating your own online bookshelf.
 
-Currently, two official plugins are available:
+## Tests
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[![Test](https://github.com/JacobKnaack/can-of-books-vite/actions/workflows/playwright.yaml/badge.svg)](https://github.com/JacobKnaack/can-of-books-vite/actions/workflows/playwright.yaml)
+
+## What can books do?
+
+Books are life-changing. They have the power to enlighten, educate, entertain, heal, and help us grow. Build out this code base to create an web app to track what books have impacted you, and what's recommended to read next.
+
+## Use this template
+
+Clone this repo to your own account with the green "Use this template" button. Then, add any collaborators. Now you are ready to start adding features! Deploy your site to let the world know which books have had the greatest impact on you, and what's recommended. Enjoy!
