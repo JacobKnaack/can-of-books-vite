@@ -4,7 +4,7 @@ This repository has starter code to begin work on creating your own online books
 
 ## Tests
 
-[![Test](https://github.com/JacobKnaack/can-of-books-vite/actions/workflows/playwright.yaml/badge.svg)](https://github.com/JacobKnaack/can-of-books-vite/actions/workflows/playwright.yaml)
+[![Test](https://github.com/ACCOUNT_NAME/can-of-books/actions/workflows/playwright.yaml/badge.svg)](https://github.com/ACCOUNT_NAME/can-of-books/actions/workflows/playwright.yaml)
 
 ## What can books do?
 
