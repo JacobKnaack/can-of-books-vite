@@ -1,17 +1,19 @@
 import dotenv from 'dotenv';
-import { test, expect } from '@playwright/test';
+// import { test, expect } from '@playwright/test';
+import { auth as test, expect } from './fixtures/auth.js';
 dotenv.config({ path: '.env.local' });
 
 const REACT_APP_URL = process.env.PLAYWRIGHT_TEST_URL || 'http://localhost:5173';
 
 test.describe('As a user, I\'d like to see the list of books, so that I can see what\'s recommended to me.', () => {
 
-  test('When the server does return some books, use a Bootstrap carousel to render all the books returned.', async ({ page }) => {
+  test('When the server does return some books, use a Bootstrap carousel to render all the books returned.', async ({ page, login }) => {
     await page.goto(REACT_APP_URL);
+    await page.waitForLoadState('networkidle');
 
-    let bookItems = await page.locator(`.carousel-item`).all();
+    let bookCount = await page.locator(`.carousel-item`).count();
 
-    expect(bookItems.length > 1).toBeTruthy();
+    expect(bookCount > 1).toBeTruthy();
   });
 
   test('Use React Router to add ability for user to navigate between Home and About "pages"', async ({ page }) => {

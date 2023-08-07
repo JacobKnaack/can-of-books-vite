@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Carousel, Button, Container, Image } from 'react-bootstrap';
 import ErrorAlert from './ErrorAlert';
 import BookFormModal from './BookFormModal';
+import { withAuth0 } from '@auth0/auth0-react';
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
@@ -28,18 +29,39 @@ class BestBooks extends React.Component {
     }
   }
 
-  /* TODO: Make a GET request to your API to fetch all the books from the database  */
+  getToken = async () => {
+    if (this.props.auth0.isAuthenticated) {
+      let res = await this.props.auth0.getIdTokenClaims();
+      return res.__raw;
+    }
+    this.setState({
+      errorMessage: 'Auth error - Not Authenticated'
+    });
+    return null;
+  }
+
+  /**
+    * Class_11 TODO(DONE): Make a GET request to your API to fetch all the books from the database
+    * Class_15 TODO(DONE): Make use of auth0 to grab our JWT to send to the server.
+    */
   componentDidMount() {
-    fetch(SERVER_URL + '/books')
-    .then(res => res.json())
-    .then(json => {
-      console.log(json);
-      this.setState({
-        books: json
-      });
+    this.getToken()
+    .then(token => {
+      const config = {
+        headers: { "Authorization": `Bearer ${token}` },
+        method: 'GET',
+        baseURL: SERVER_URL,
+        url: '/books'
+      }
+      axios(config)
+        .then(bookRes => {
+          this.setState({
+            books: bookRes.data
+          });
+        })
     })
-    .catch(err => {
-      console.error(err);
+    .catch(e => {
+      console.error(e);
     });
   }
   
@@ -49,8 +71,10 @@ class BestBooks extends React.Component {
    */
   createBook = async (newBook) => {
     try {
+      let token = await this.getToken();
       const config = {
-        method: "post",
+        headers: { "Authorization": `Bearer ${token}` },
+        method: "POST",
         baseURL: SERVER_URL,
         url: "/books/",
         // axios sends "data" in the request.body
@@ -77,9 +101,11 @@ class BestBooks extends React.Component {
   deleteBook = async (bookToBeDeleted) => {
     try {
       const proceed = window.confirm(`Do you want to delete ${bookToBeDeleted.title}?`)
+      let token = await this.getToken();
 
       if (proceed) {
         const config = {
+          headers: { "Authorization": `Bearer ${token}`},
           method: "delete",
           baseURL: SERVER_URL,
           url: `/books/${bookToBeDeleted._id}`,
@@ -105,24 +131,31 @@ class BestBooks extends React.Component {
    */
   updateBook = async (updatedBook) => {
     console.log('Book to be updated: ', updatedBook);
-    const config = {
-      method: 'put',
-      baseURL: SERVER_URL,
-      url: `/books/${updatedBook._id}`,
-      data: updatedBook
-    };
+    try {
+      let token = await this.getToken();
+      const config = {
+        headers: { "Authorization": `Bearer ${token}` },
+        method: 'put',
+        baseURL: SERVER_URL,
+        url: `/books/${updatedBook._id}`,
+        data: updatedBook
+      };
 
-    const updatedBookResult = await axios(config);
+      const updatedBookResult = await axios(config);
 
-    const updatedBooks = this.state.books.map(book => {
-      if (book._id === updatedBookResult.data._id) {
-        return updatedBookResult.data;
-      } else {
-        return book;
-      }
-    });
+      const updatedBooks = this.state.books.map(book => {
+        if (book._id === updatedBookResult.data._id) {
+          return updatedBookResult.data;
+        } else {
+          return book;
+        }
+      });
 
-    this.setState({ books: updatedBooks });
+      this.setState({ books: updatedBooks });  
+    } catch (e) {
+      this.setState({ errorMessage: JSON.stringify(e) });
+    }
+    
   };
 
   closeBookFormModal = () => this.setState({ showForm: false });
@@ -196,4 +229,6 @@ class BestBooks extends React.Component {
   }
 }
 
-export default BestBooks;
+const AuthBooks = withAuth0(BestBooks);
+
+export default AuthBooks;
