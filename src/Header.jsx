@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar, NavItem } from 'react-bootstrap';
-import AuthButtons from './Auth/AuthButtons';
+import AuthButtons from './auth/AuthButtons';
 import { withAuth0 } from '@auth0/auth0-react';
 import { Link } from "react-router-dom";
 
