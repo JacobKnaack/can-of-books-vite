@@ -8,8 +8,8 @@ const REACT_APP_URL = process.env.PLAYWRIGHT_TEST_URL || 'http://localhost:5173'
 const TEST_EMAIL = process.env.PLAYWRIGHT_TEST_EMAIL;
 const TEST_PASSWORD = process.env.PLAYWRIGHT_TEST_PASSWORD;
 
-export const auth = test.extend({
-  login: async ({page}, use) => {
+export const authTest = test.extend({
+  page: async ({page}, use) => {
     await page.goto(REACT_APP_URL);
     await page.getByRole('button', { name: /log in/i }).click();
 

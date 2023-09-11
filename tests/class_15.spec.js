@@ -1,15 +1,18 @@
 import dotenv from 'dotenv';
-// import { test, expect } from '@playwright/test';
-import { auth as test, expect } from './fixtures/auth.js';
 dotenv.config({ path: '.env.local' });
+
+// TODO class 15:  comment out the line below
+// import { test, expect } from '@playwright/test';
+
+// TODO class 15: Un-comment the line below
+import { authTest as test, expect } from './fixtures/auth.js';
 
 const REACT_APP_URL = process.env.PLAYWRIGHT_TEST_URL || 'http://localhost:5173';
 
 test.describe('Authentication: As a user, I\'d like to sign in with OAuth, so that I can authenticate to the site without creating yet - another username / password combo to potentially get hacked or lost.', () => {
 
-  test('Use the Auth0 identity service to allow users to authenticate their identity for your application.', async ({ page, login }) => {
+  test('Use the Auth0 identity service to allow users to authenticate their identity for your application.', async ({ page }) => {
     // go to profile page
-    // await login();
     await page.goto(REACT_APP_URL + '/profile');
     
     // check for profile email and image

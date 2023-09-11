@@ -1,13 +1,17 @@
 import dotenv from 'dotenv';
-// import { test, expect } from '@playwright/test';
-import { auth as test, expect } from './fixtures/auth.js';
 dotenv.config({ path: '.env.local' });
+
+// TODO class 15:  comment out the line below
+// import { test, expect } from '@playwright/test';
+
+// TODO class 15: Un-comment the line below
+import { authTest as test, expect } from './fixtures/auth.js';
 
 const REACT_APP_URL = process.env.PLAYWRIGHT_TEST_URL || 'http://localhost:5173';
 
 test.describe('As a user, I\'d like to see the list of books, so that I can see what\'s recommended to me.', () => {
 
-  test('When the server does return some books, use a Bootstrap carousel to render all the books returned.', async ({ page, login }) => {
+  test('When the server does return some books, use a Bootstrap carousel to render all the books returned.', async ({ page }) => {
     await page.goto(REACT_APP_URL);
     await page.waitForLoadState('networkidle');
 
