@@ -10,15 +10,20 @@ const TEST_PASSWORD = process.env.PLAYWRIGHT_TEST_PASSWORD;
 
 export const authTest = test.extend({
   page: async ({page}, use) => {
-    await page.goto(REACT_APP_URL);
-    await page.getByRole('button', { name: /log in/i }).click();
 
-    // fill out user credentials -> store as secrets somewhere
-    await page.getByPlaceholder(/yours@example.com/i).fill(TEST_EMAIL);
-    await page.getByPlaceholder(/your password/i).fill(TEST_PASSWORD);
-    await page.locator('button[type="submit"]').click();
+    if (TEST_EMAIL && TEST_PASSWORD) {
+      console.warn('** RUNNING AUTH FIXTURE :: ' + REACT_APP_URL + '**');
+      await page.goto(REACT_APP_URL);
+      await page.getByRole('button', { name: /log in/i }).click();
+  
+      // fill out user credentials -> store as secrets somewhere
+      await page.getByPlaceholder(/yours@example.com/i).fill(TEST_EMAIL);
+      await page.getByPlaceholder(/your password/i).fill(TEST_PASSWORD);
+      await page.locator('button[type="submit"]').click();
+  
+      await expect(page.getByText(/log out/i)).toBeVisible();
+    }
 
-    await expect(page.getByText(/log out/i)).toBeVisible();
     await use(page);
   }
 });

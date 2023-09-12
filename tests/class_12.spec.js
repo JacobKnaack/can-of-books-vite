@@ -1,10 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env.local' });
 
-// TODO class 15:  comment out the line below
-// import { test, expect } from '@playwright/test';
-
-// TODO class 15: Un-comment the line below
 import { authTest as test, expect } from './fixtures/auth.js';
 
 const REACT_APP_URL = process.env.PLAYWRIGHT_TEST_URL || 'http://localhost:5173';
