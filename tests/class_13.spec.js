@@ -35,7 +35,6 @@ test.describe('Update: As a user, I want to update book details on my list, so t
     await page.locator(`input[id='description']`).fill(description);
     await page.locator(`button[type='submit']`).click();
 
-    await page.waitForTimeout(2000);
     let updatedCount = await page.locator(`.carousel-item`).count();
 
     await expect(page.getByText(title)).toBeVisible();
