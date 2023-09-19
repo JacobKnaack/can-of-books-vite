@@ -21,7 +21,7 @@ jobs:
         run: npx playwright install --with-deps
       - name: Set environment variables
         run: |
-          echo "PLAYWRIGHT_TEST_URL=${{ secret.TEST_URL }}" >> $GITHUB_ENV
+          echo "PLAYWRIGHT_TEST_URL=${{ secrets.TEST_URL }}" >> $GITHUB_ENV
           echo "PLAYWRIGHT_TEST_EMAIL=${{ secrets.TEST_EMAIL }}" >> $GITHUB_ENV
           echo "PLAYWRIGHT_TEST_PASSWORD=${{ secrets.TEST_PASSWORD }}" >> $GITHUB_ENV
       - name: Run tests
