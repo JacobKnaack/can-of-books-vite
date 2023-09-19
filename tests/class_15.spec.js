@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-dotenv.config({ path: '.env.local' });
+dotenv.config();
 
 import { authTest as test, expect } from './fixtures/auth.js';
 
