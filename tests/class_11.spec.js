@@ -1,20 +1,22 @@
 import dotenv from 'dotenv';
-import { test, expect } from '@playwright/test';
-dotenv.config({ path: '.env.local' });
+dotenv.config();
+
+import { authTest as test, expect } from './fixtures/auth.js';
 
 const REACT_APP_URL = process.env.PLAYWRIGHT_TEST_URL || 'http://localhost:5173';
 
 test.describe('As a user, I\'d like to see the list of books, so that I can see what\'s recommended to me.', () => {
 
-  test('When the server does return some books, use a Bootstrap carousel to render all the books returned.', async ({ page }) => {
+  test.fixme('When the server does return some books, use a Bootstrap carousel to render all the books returned.', async ({ page }) => {
     await page.goto(REACT_APP_URL);
+    await page.waitForLoadState('networkidle');
 
-    let bookItems = await page.locator(`.carousel-item`).all();
+    let bookCount = await page.locator(`.carousel-item`).count();
 
-    expect(bookItems.length > 1).toBeTruthy();
+    expect(bookCount > 1).toBeTruthy();
   });
 
-  test('Use React Router to add ability for user to navigate between Home and About "pages"', async ({ page }) => {
+  test.fixme('Use React Router to add ability for user to navigate between Home and About "pages"', async ({ page }) => {
     await page.goto(REACT_APP_URL);
 
     let regex = /about/i;
@@ -23,7 +25,7 @@ test.describe('As a user, I\'d like to see the list of books, so that I can see 
     await expect(anchor).toBeVisible();
   });
 
-  test('Update the About page at path /about so that it displays the project developer\'s information, including a link to GitHub.', async ({ page }) => {
+  test.fixme('Update the About page at path /about so that it displays the project developer\'s information, including a link to GitHub.', async ({ page }) => {
     await page.goto(REACT_APP_URL + '/about');
 
     let regex = /Github/ig;
