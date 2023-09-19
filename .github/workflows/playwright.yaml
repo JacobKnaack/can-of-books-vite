@@ -21,7 +21,8 @@ jobs:
         run: npx playwright install --with-deps
       - name: Set environment variables
         run: |
-          URL=https://my-favorite-books-vite.netlify.app
-          echo "PLAYWRIGHT_TEST_URL=$URL" >> $GITHUB_ENV
+          echo "PLAYWRIGHT_TEST_URL=${{ secrets.TEST_URL }}" >> $GITHUB_ENV
+          echo "PLAYWRIGHT_TEST_EMAIL=${{ secrets.TEST_EMAIL }}" >> $GITHUB_ENV
+          echo "PLAYWRIGHT_TEST_PASSWORD=${{ secrets.TEST_PASSWORD }}" >> $GITHUB_ENV
       - name: Run tests
         run: npx playwright test
